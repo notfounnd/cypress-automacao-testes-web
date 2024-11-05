@@ -17,7 +17,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
-          build: yarn install
+          install-command: yarn install
 
       - name: Save build artifact
         uses: actions/upload-artifact@v4
