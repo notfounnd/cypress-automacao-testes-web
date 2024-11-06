@@ -13,11 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Project install
+      - name: Project build
         uses: cypress-io/github-action@v6
         with:
           runTests: false
-          install-command: yarn install
+          useLockFile: false
+          build: yarn install
 
       - name: Save build artifact
         uses: actions/upload-artifact@v4
