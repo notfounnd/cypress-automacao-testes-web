@@ -39,6 +39,9 @@ jobs:
           name: build
           path: ./
 
+      - name: ls -la
+        run: ls -la
+        
       - name: Linter code check
         run: yarn linter:code:check
 #        uses: cypress-io/github-action@v6
