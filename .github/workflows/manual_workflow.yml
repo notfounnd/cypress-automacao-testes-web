@@ -38,16 +38,12 @@ jobs:
         with:
           name: build
           path: ./
-
-      - name: ls -la
-        run: ls -la
         
       - name: Linter code check
-        run: yarn linter:code:check
-#        uses: cypress-io/github-action@v6
-#        with:
-#          runTests: false
-#          command: yarn linter:code:check
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          command: yarn linter:code:check
 
   project-report-specs:
     runs-on: ubuntu-latest
@@ -63,11 +59,10 @@ jobs:
           path: ./
 
       - name: Report Specs
-        run: yarn find:specs:name
-#        uses: cypress-io/github-action@v6
-#        with:
-#          runTests: false
-#          command: yarn find:specs:name
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          command: yarn find:specs:name
 
   project-runt-tests:
     runs-on: ubuntu-latest
@@ -83,7 +78,7 @@ jobs:
           path: ./
 
       - name: Run tests
-        run: yarn cy:run
- #       uses: cypress-io/github-action@v6
- #       with:
- #         command: yarn cy:run
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          command: yarn cy:run
