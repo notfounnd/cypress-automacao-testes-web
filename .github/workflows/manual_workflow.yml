@@ -28,4 +28,3 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           install: false
-          command: yarn cy:run
