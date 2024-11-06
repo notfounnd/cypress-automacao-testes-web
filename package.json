@@ -8,6 +8,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "find:specs:name": "find-cypress-specs --names",
+    "linter:code:check": "standard -v | snazzy",
     "linter:code:fix": "standard -v --fix | snazzy"
   },
   "standard": {
