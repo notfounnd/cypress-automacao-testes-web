@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  install:
+  project-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,12 +23,50 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build
-          if-no-files-found: error
           path: ./
+          if-no-files-found: error
 
-  cypress-test-report:
+  project-linter:
     runs-on: ubuntu-latest
-    needs: install
+    needs: project-build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      - name: Linter code check
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+          start: yarn linter:code:check
+
+  project-report-specs:
+    runs-on: ubuntu-latest
+    needs: project-linter
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: build
+
+      - name: Report Specs
+        uses: cypress-io/github-action@v6
+        with:
+          runTests: false
+          start: yarn find:specs:name
+
+  project-runt-tests:
+    runs-on: ubuntu-latest
+    needs: project-linter
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,4 +80,4 @@ jobs:
       - name: Run tests
         uses: cypress-io/github-action@v6
         with:
-          start: yarn find:specs:name
+          start: yarn cy:run
